@@ -52,13 +52,11 @@ namespace SortedListExTask
 
         private bool IsDateAlreadyChosen()
         {
-            foreach(object date in lstTasks.Items)
+
+            if(taskList.ContainsKey(dtpTaskDate.Value.ToString("d")))
             {
-                if(dtpTaskDate.Value.ToString("d") == date.ToString())
-                {
-                    MessageBox.Show("Only one task per day is allowed");
-                    return true;
-                }
+                MessageBox.Show("Only one task per day is allowed");
+                return true;
             }
 
             return false;
@@ -118,7 +116,7 @@ namespace SortedListExTask
                     string message = "";
                     foreach(KeyValuePair<string, string> keyval in taskList)
                     {
-                        message += $"{keyval.Key} - {keyval.Value} \r\n";
+                        message += $"{keyval.Key} - {keyval.Value} \r\n";                     
                     }
 
                     MessageBox.Show(message);
