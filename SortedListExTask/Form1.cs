@@ -79,7 +79,7 @@ namespace SortedListExTask
             {
                 if (lstTasks.SelectedIndex == -1)
                 {
-                    MessageBox.Show("Please select the task to be deleted");
+                    MessageBox.Show("Please select the task to be deleted", "No task selected", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
 
                 else
@@ -93,7 +93,7 @@ namespace SortedListExTask
                         //gotta make sure that this is in the correct order XD
                         taskList.Remove(lstTasks.SelectedItem.ToString());
                         lstTasks.Items.Remove(lstTasks.SelectedItem);
-                        txtTask.Text = string.Empty;
+                        lblTaskDetails.Text = string.Empty;
                     }
                 }
             }
@@ -105,7 +105,29 @@ namespace SortedListExTask
 
         private void btnPrintAll_Click(object sender, EventArgs e)
         {
+            try
+            {
+                if(lstTasks.Items.Count == 0)
+                {
+                    MessageBox.Show("Please add some tasks to the list", "Not Enough Tasks",
+                        MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                }
 
+                else
+                {
+                    string message = "";
+                    foreach(KeyValuePair<string, string> keyval in taskList)
+                    {
+                        message += $"{keyval.Key} - {keyval.Value} \r\n";
+                    }
+
+                    MessageBox.Show(message);
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message, ex.GetType().ToString(), MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
         }
     }
 }
